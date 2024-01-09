@@ -1,3 +1,6 @@
+# Ben Hammel, & Nick Sullivan-Molina. (2020, March 21). 
+# bdhammel/least-squares-ellipse-fitting: v2.0.0 (Version v2.0.0). 
+# Zenodo. http://doi.org/10.5281/zenodo.3723294
 import numpy as np
 import numpy.linalg as la
 from math import pi

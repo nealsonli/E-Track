@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+"""
+Nealson Li, Ashwin Bhat, Arijit Raychowdhury
+June 11, 2023
+"""
 
 import pickle
 import os
@@ -19,17 +23,19 @@ from copy import deepcopy
 import timeit
 
 from math import pi, cos, sin
-from statistics import mean
-from ellipse import LsqEllipse
-from unet import custom_objects, utils
+from util.ellipse import LsqEllipse
+from unet import custom_objects
 
-from eye_dataset import EyeDataset
+from dataset.eye_dataset import EyeDataset
 
 seed = 0
 tf.random.set_seed(seed)
 np.random.seed(seed)
 rng = np.random.RandomState(seed)
 
+
+# Amit Kohli, Julien Martel, and Anastasios Angelopoulos
+# August 10, 2020
 parser = argparse.ArgumentParser(description='Arguments for using the eye visualizer')
 parser.add_argument('--subject',
                     type=int, default=22,  # 22
@@ -506,30 +512,30 @@ def e_track(eye_dataset):
 
 
 def main():
-    for user in range(4, 28, 1):
-        opt.subject = user
-        eye_dataset = EyeDataset(opt.data_dir, opt.subject)
-        if opt.eye == 'left':
-            print('Showing the left eye of subject ' + str(opt.subject) + '\n')
-            print('Loading Data from ' + opt.data_dir + '..... \n')
-            eye_dataset.collect_data(0)
-        else:
-            print('Showing the right eye of subject ' + str(opt.subject) + '\n')
-            print('Loading Data from ' + opt.data_dir + '..... \n')
-            eye_dataset.collect_data(1)
+    # Amit Kohli, Julien Martel, and Anastasios Angelopoulos
+    # August 10, 2020
+    eye_dataset = EyeDataset(opt.data_dir, opt.subject)
+    if opt.eye == 'left':
+        print('Showing the left eye of subject ' + str(opt.subject) + '\n')
+        print('Loading Data from ' + opt.data_dir + '..... \n')
+        eye_dataset.collect_data(0)
+    else:
+        print('Showing the right eye of subject ' + str(opt.subject) + '\n')
+        print('Loading Data from ' + opt.data_dir + '..... \n')
+        eye_dataset.collect_data(1)
 
-        print('Total length of data (event + frame): ' + str(eye_dataset.__len__()))
-        print('Parsing Data using a ' + str(opt.buffer) + ' event buffer...')
+    print('Total length of data (event + frame): ' + str(eye_dataset.__len__()))
+    print('Parsing Data using a ' + str(opt.buffer) + ' event buffer...')
 
-        target_event_sets, target_event_set_labels = e_track(eye_dataset)
+    target_event_sets, target_event_set_labels = e_track(eye_dataset)
 
-        user_dir = "./cnn_sys_run/user_%s" % opt.subject
-        if not os.path.exists(user_dir):
-            os.makedirs(user_dir)
+    user_dir = "./cnn_sys_run/user_%s" % opt.subject
+    if not os.path.exists(user_dir):
+        os.makedirs(user_dir)
 
-        filename = user_dir + "/%s_user_%s_target_cnn_event_sets_dataset.txt" % (opt.eye, opt.subject)
-        with open(filename, "wb") as fp_timeit:
-            pickle.dump([target_event_sets, target_event_set_labels], fp_timeit)
+    filename = user_dir + "/%s_user_%s_target_cnn_event_sets_dataset.txt" % (opt.eye, opt.subject)
+    with open(filename, "wb") as fp_timeit:
+        pickle.dump([target_event_sets, target_event_set_labels], fp_timeit)
 
 
 if __name__ == '__main__':

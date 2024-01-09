@@ -1,3 +1,8 @@
+# J. Akeret, C. Chang, A. Lucchi, A. Refregier,
+# Radio frequency interference mitigation using deep convolutional neural networks,
+# Astronomy and Computing, # Volume 18, # 2017, # Pages 35-39,
+# ISSN 2213-1337, # https://doi.org/10.1016/j.ascom.2017.01.002.
+
 # unet is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -17,8 +22,7 @@ import unet
 import timeit
 from tensorflow.keras import backend as K
 from unet import custom_objects, utils
-
-import pupil_event_dataset
+from dataset import e_track_dataset
 
 
 img_x_size = 352  # 346
@@ -78,9 +82,9 @@ def train():
     train_tfrecs = np.array(tf.io.gfile.glob(f"./tfrecord_0/*user-{user}*.tfrec" for user in users))
     valid_tfrecs = np.array(tf.io.gfile.glob(f"./tfrecord_1/*user-{user}*.tfrec" for user in users))
     test_tfrecs = np.array(tf.io.gfile.glob(f"./tfrecord_2/*user-{user}*.tfrec" for user in users))
-    train_dataset = pupil_event_dataset.load_data(train_tfrecs)
-    valid_dataset = pupil_event_dataset.load_data(valid_tfrecs)
-    test_dataset = pupil_event_dataset.load_data(test_tfrecs)
+    train_dataset = e_track_dataset.load_data(train_tfrecs)
+    valid_dataset = e_track_dataset.load_data(valid_tfrecs)
+    test_dataset = e_track_dataset.load_data(test_tfrecs)
 
     for feat in train_dataset.take(1):
         print(f"Image shape: {feat[0].shape}")
@@ -107,7 +111,7 @@ def predict():
 
     users = range(4, 28, 1)
     test_tfrecs = np.array(tf.io.gfile.glob(f"./tfrecord_2/*user-{user}*.tfrec" for user in users))
-    test_dataset = pupil_event_dataset.load_data(test_tfrecs)
+    test_dataset = e_track_dataset.load_data(test_tfrecs)
 
     count = 0
     for element in test_dataset:
@@ -133,7 +137,7 @@ def predict():
 
 
 if __name__ == '__main__':
-    train()
-
-    with tf.device('/cpu:0'):
-        predict()
+    # train()
+    print("test")
+    # with tf.device('/cpu:0'):
+    #     predict()

@@ -2,7 +2,6 @@
 """
 Amit Kohli, Julien Martel, and Anastasios Angelopoulos
 August 10, 2020
-This script provides a visualization of the ebv-eye data.
 """
 
 import os
