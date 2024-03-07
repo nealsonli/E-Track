@@ -19,5 +19,5 @@ requirements with:
 ```
 conda create -n e_track python=3.8
 conda activate e_track
-python -m pip install -r aegnn/requirements.txt
+python -m pip install -r requirements.txt
 ```
