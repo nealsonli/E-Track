@@ -44,7 +44,7 @@ parser.add_argument('--eye',
                     default='left', choices=['left', 'right'],
                     help='Which eye to visualize, left or right')
 parser.add_argument('--data_dir',
-                    default=os.path.join(os.getcwd(), 'eye_data'),
+                    default=os.path.join(os.getcwd(), 'data/eye_data'),
                     help='absolute path to eye_data/, by default assumes same parent dir as this script')
 parser.add_argument('--buffer',
                     type=int, default=2000,
