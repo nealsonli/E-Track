@@ -33,7 +33,6 @@ bash setup.sh
 ## Training and Predicting with U-Net
 To train or predict with the pupil event classification U-Net, configure `modle/e_track_unet.py` to train or predict and run command:
 ```
-cd model
 python e_track_unet.py
 ```
 
