@@ -316,7 +316,7 @@ def e_track(eye_dataset):
 
     # Load U-Net
     custom_objects['loss'] = weighted_categorical_crossentropy(np.array([0.1, 0.9]))
-    unet_model = tf.keras.models.load_model('pupil_event/2023-01-24T00-11_42',
+    unet_model = tf.keras.models.load_model('model/trained/2023-01-24T00-11_42',
                                             custom_objects=custom_objects)
     unet_model.summary()
 
@@ -528,14 +528,6 @@ def main():
     print('Parsing Data using a ' + str(opt.buffer) + ' event buffer...')
 
     target_event_sets, target_event_set_labels = e_track(eye_dataset)
-
-    user_dir = "./cnn_sys_run/user_%s" % opt.subject
-    if not os.path.exists(user_dir):
-        os.makedirs(user_dir)
-
-    filename = user_dir + "/%s_user_%s_target_cnn_event_sets_dataset.txt" % (opt.eye, opt.subject)
-    with open(filename, "wb") as fp_timeit:
-        pickle.dump([target_event_sets, target_event_set_labels], fp_timeit)
 
 
 if __name__ == '__main__':

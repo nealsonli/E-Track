@@ -105,7 +105,7 @@ def train():
 
 def predict():
     custom_objects['loss'] = weighted_categorical_crossentropy(np.array([0.1, 0.9]))
-    unet_model = tf.keras.models.load_model('pupil_event/2023-01-24T00-11_42',
+    unet_model = tf.keras.models.load_model('trained/2023-01-24T00-11_42',
                                             custom_objects=custom_objects)
     unet_model.summary()
 
