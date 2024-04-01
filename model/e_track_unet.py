@@ -79,9 +79,9 @@ def train():
     trainer = unet.Trainer(name="pupil_event", callbacks=[callback])
 
     users = range(4, 28, 1)
-    train_tfrecs = np.array(tf.io.gfile.glob(f"./tfrecord_0/*user-{user}*.tfrec" for user in users))
-    valid_tfrecs = np.array(tf.io.gfile.glob(f"./tfrecord_1/*user-{user}*.tfrec" for user in users))
-    test_tfrecs = np.array(tf.io.gfile.glob(f"./tfrecord_2/*user-{user}*.tfrec" for user in users))
+    train_tfrecs = np.array(tf.io.gfile.glob(f"../data/tfrecord_0/*user-{user}*.tfrec" for user in users))
+    valid_tfrecs = np.array(tf.io.gfile.glob(f"../data/tfrecord_1/*user-{user}*.tfrec" for user in users))
+    test_tfrecs = np.array(tf.io.gfile.glob(f"../data/tfrecord_2/*user-{user}*.tfrec" for user in users))
     train_dataset = e_track_dataset.load_data(train_tfrecs)
     valid_dataset = e_track_dataset.load_data(valid_tfrecs)
     test_dataset = e_track_dataset.load_data(test_tfrecs)
@@ -105,12 +105,12 @@ def train():
 
 def predict():
     custom_objects['loss'] = weighted_categorical_crossentropy(np.array([0.1, 0.9]))
-    unet_model = tf.keras.models.load_model('trained/2023-01-24T00-11_42',
+    unet_model = tf.keras.models.load_model('../trained_model/2023-01-24T00-11_42',
                                             custom_objects=custom_objects)
     unet_model.summary()
 
     users = range(4, 28, 1)
-    test_tfrecs = np.array(tf.io.gfile.glob(f"./tfrecord_2/*user-{user}*.tfrec" for user in users))
+    test_tfrecs = np.array(tf.io.gfile.glob(f"../data/tfrecord_2/*user-{user}*.tfrec" for user in users))
     test_dataset = e_track_dataset.load_data(test_tfrecs)
 
     count = 0
@@ -137,7 +137,9 @@ def predict():
 
 
 if __name__ == '__main__':
+    # Training
     # train()
-    print("test")
-    # with tf.device('/cpu:0'):
-    #     predict()
+
+    # Testing
+    with tf.device('/cpu:0'):
+        predict()
