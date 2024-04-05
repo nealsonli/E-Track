@@ -16,7 +16,7 @@ This repository contains the code for the paper "[E-Track: Eye Tracking with Eve
 
 
 ## Enviroment Setup
-For our implementation, Python version 3.8 with CUDA version 10.1 and Tensorflow-GPU version 2.3.0 are used. Install the project
+For our implementation, Python version 3.8 with CUDA version 10.1 and Tensorflow-GPU version 2.6.0 are used. Install the project
 requirements with:
 ```
 conda create -n e_track python=3.8
