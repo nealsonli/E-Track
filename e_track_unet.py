@@ -141,5 +141,5 @@ if __name__ == '__main__':
     # train()
 
     # Testing
-    # with tf.device('/cpu:0'):
-    predict()
+    with tf.device('/cpu:0'):
+        predict()
